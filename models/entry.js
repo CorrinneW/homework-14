@@ -2,7 +2,7 @@ const { Model, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
 
-class Entry extends Model { };
+class Entry extends Model {};
 
 Entry.init(
     {
