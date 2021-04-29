@@ -11,8 +11,7 @@
 
 {{#each comments as |comment|}}
 <div>
-    <h3>{{comment.title}}</h3>
-    <p>By {{comment.user.name}} on {{format_date comment.date_created}}</p>
+    <h3>{{comment.user.name}} commented on {{format_date comment.date_created}}</h3>
     <p>
         {{comment.content}}
     </p>
