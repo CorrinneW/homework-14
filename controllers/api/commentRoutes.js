@@ -1,50 +1,80 @@
 const router = require('express').Router();
-const { Comment, Entry } = require('../../models');
+const { Comment, Entry, User } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 router.post('/', withAuth, async (req, res) => {
-    try {
-      const newComment = await Comment.create({
-        ...req.body,
-        user_id: req.session.user_id,
-      });
-  
-      res.status(200).json(newComment);
-    } catch (err) {
-      res.status(400).json(err);
-    }
-  });
+  try {
+    const newComment = await Comment.create({
+      ...req.body,
+      user_id: req.session.user_id,
+    });
 
-  router.get('/:id', withAuth, async (req, res) => {
-      try {
-          const individualComment = await Comment.findByPk(req.params.id, {
-            include: [{model: Comment}]
-          })
-          res.status(200).json(individualComment);
-      }
-      catch (err) {
-          res.json(err);
-      }
-  })
+    res.status(200).json(newComment);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
 
-  router.delete('/:id', withAuth, async (req, res) => {
-    try {
-      const commentData = await Comment.destroy({
-        where: {
-          id: req.params.id,
-          user_id: req.session.user_id,
+router.get('/', withAuth, async (req, res) => {
+  try {
+    const allComments = await Comment.findAll({
+      include: [
+        {
+          model: Entry,
+          attributes: ['title']
         },
-      });
-  
-      if (!commentData) {
-        res.status(404).json({ message: 'No entry found with this id!' });
-        return;
-      }
-  
-      res.status(200).json(commentData);
-    } catch (err) {
-      res.status(500).json(err);
+        {
+          model: User,
+          attributes: ['name']
+        }
+      ]
+    })
+    res.status(200).json(allComments);
+  }
+  catch (err) {
+    res.json(err);
+  }
+})
+
+router.get('/:id', withAuth, async (req, res) => {
+  try {
+    const individualComment = await Comment.findByPk(req.params.id, {
+      include: [
+        {
+          model: Entry,
+          attributes: ['title']
+        },
+        {
+          model: User,
+          attributes: ['name']
+        }
+      ]
+    })
+    res.status(200).json(individualComment);
+  }
+  catch (err) {
+    res.json(err);
+  }
+})
+
+router.delete('/:id', withAuth, async (req, res) => {
+  try {
+    const commentData = await Comment.destroy({
+      where: {
+        id: req.params.id,
+        user_id: req.session.user_id,
+      },
+    });
+
+    if (!commentData) {
+      res.status(404).json({ message: 'No entry found with this id!' });
+      return;
     }
-  });
-  
-  module.exports = router;
+
+    res.status(200).json(commentData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+module.exports = router;

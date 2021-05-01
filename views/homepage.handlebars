@@ -12,5 +12,15 @@
       {{entry.content}}
     </p>
   </div>
+  {{#each comments as |comment|}}
+  <div class="col-md-5">
+    <p>{{comment.user.name}} on {{format_date comment.date_created}}</p>
+  </div>
+  <div class="col-md-7">
+    <p>
+      {{comment.content}}
+    </p>
+  </div>
+  {{/each}}
 </div>
 {{/each}}

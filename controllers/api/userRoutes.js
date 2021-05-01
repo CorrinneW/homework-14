@@ -1,5 +1,47 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const { User, Entry, Comment } = require('../../models');
+
+router.get('/', async (req, res) => {
+  try {
+    const allUsers = await User.findAll({
+      include: [
+        {
+          model: Entry,
+          attributes: ['title']
+        },
+        {
+          model: Comment,
+          attributes: ['id']
+        }
+      ]
+    })
+    res.status(200).json(allUsers);
+  }
+  catch (err) {
+    res.json(err);
+  }
+})
+
+router.get('/:id', async (req, res) => {
+  try {
+    const individualUser = await User.findByPk(req.params.id, {
+      include: [
+        {
+          model: Entry,
+          attributes: ['title']
+        },
+        {
+          model: Comment,
+          attributes: ['id']
+        }
+      ]
+    })
+    res.status(200).json(individualUser);
+  }
+  catch (err) {
+    res.json(err);
+  }
+})
 
 router.post('/register', async (req, res) => {
     try {
