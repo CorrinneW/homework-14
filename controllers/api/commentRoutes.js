@@ -8,7 +8,7 @@ router.post('/', withAuth, async (req, res) => {
       ...req.body,
       user_id: req.session.user_id,
     });
-
+    console.log(req.body)
     res.status(200).json(newComment);
   } catch (err) {
     res.status(400).json(err);
@@ -17,7 +17,8 @@ router.post('/', withAuth, async (req, res) => {
 
 router.get('/', withAuth, async (req, res) => {
   try {
-    const allComments = await Comment.findAll({
+    const allComments = await Comment.findAll(
+      {
       include: [
         {
           model: Entry,
@@ -28,7 +29,8 @@ router.get('/', withAuth, async (req, res) => {
           attributes: ['name']
         }
       ]
-    })
+    }
+    )
     res.status(200).json(allComments);
   }
   catch (err) {
@@ -67,7 +69,7 @@ router.delete('/:id', withAuth, async (req, res) => {
     });
 
     if (!commentData) {
-      res.status(404).json({ message: 'No entry found with this id!' });
+      res.status(404).json({ message: 'No comment found with this id!' });
       return;
     }
 

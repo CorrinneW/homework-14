@@ -17,7 +17,8 @@ router.post('/', withAuth, async (req, res) => {
 
 router.get('/', withAuth, async (req, res) => {
   try {
-    const allEntries = await Entry.findAll({
+    const allEntries = await Entry.findAll(
+      {
       include: [
         {
           model: Comment,
@@ -28,7 +29,8 @@ router.get('/', withAuth, async (req, res) => {
           attributes: ['name']
         }
       ]
-    })
+    }
+    )
     res.status(200).json(allEntries);
   }
   catch (err) {
@@ -38,7 +40,8 @@ router.get('/', withAuth, async (req, res) => {
 
 router.get('/:id', withAuth, async (req, res) => {
   try {
-    const individualEntry = await Entry.findByPk(req.params.id, {
+    const individualEntry = await Entry.findByPk(req.params.id, 
+      {
       include: [
         {
           model: Comment,
@@ -49,7 +52,8 @@ router.get('/:id', withAuth, async (req, res) => {
           attributes: ['name']
         }
       ]
-    })
+    }
+    )
     res.status(200).json(individualEntry);
   }
   catch (err) {
