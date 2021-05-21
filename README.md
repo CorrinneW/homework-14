@@ -14,7 +14,11 @@ Build a fully functioning blogging app with signup/login/logout, posting and com
 ## Live Site
 https://agile-dusk-30469.herokuapp.com/
 
-![tech blog login screenshot](https://github.com/CorrinneW/ecommerce-backend/blob/main/assets/ecommerce-backend-pic.PNG)
+![tech blog login screenshot](https://github.com/CorrinneW/tech-blog/blob/main/public/assets/tech-blog-login.png)
+![tech blog home screenshot](https://github.com/CorrinneW/tech-blog/blob/main/public/assets/tech-blog-home.png)
+![tech blog dashboard screenshot](https://github.com/CorrinneW/tech-blog/blob/main/public/assets/tech-blog-dashboard.png)
+![tech blog entry screenshot](https://github.com/CorrinneW/tech-blog/blob/main/public/assets/tech-blog-entry.png)
+
 
 
 ## License
