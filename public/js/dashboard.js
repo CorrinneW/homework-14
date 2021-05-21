@@ -1,4 +1,4 @@
-const newFormHandler = async (event) => {
+const newEntryHandler = async (event) => {
   event.preventDefault();
 
   const title = document.querySelector('#entry-title').value.trim();
@@ -30,7 +30,7 @@ const delButtonHandler = async (event) => {
     });
 
     if (response.ok) {
-      document.location.replace('/dashboard');
+      document.location.reload();
     } else {
       alert('Failed to delete entry');
     }
@@ -38,13 +38,9 @@ const delButtonHandler = async (event) => {
 };
 
 document
-  .querySelector('.new-entry-form')
-  .addEventListener('submit', newFormHandler);
+  .querySelector('#new-entry-form')
+  .addEventListener('submit', newEntryHandler);
 
 document
-  .querySelector('.entry-list')
-  .addEventListener('click', delButtonHandler);
-
-document
-  .querySelector('.entry-list')
+  .querySelector('#entry-list')
   .addEventListener('click', delButtonHandler);

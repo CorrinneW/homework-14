@@ -11,10 +11,6 @@ Entry.belongsTo(User, {
     foreignKey: 'user_id'
 });
 
-User.belongsToMany(Entry, {
-    through: Comment
-})
-
 Entry.hasMany(Comment, {
     foreignKey: 'entry_id',
     onDelete: 'CASCADE'

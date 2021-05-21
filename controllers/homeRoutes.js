@@ -65,7 +65,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
       attributes: { exclude: ['password'] },
       include: [{ model: Entry }],
     });
-
+    console.log(userData);
     const user = userData.get({ plain: true });
 
     res.render('dashboard', {

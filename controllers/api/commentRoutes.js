@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Comment, Entry, User } = require('../../models');
+const { Comment, User } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 router.post('/', withAuth, async (req, res) => {
@@ -21,10 +21,6 @@ router.get('/', withAuth, async (req, res) => {
       {
       include: [
         {
-          model: Entry,
-          attributes: ['title']
-        },
-        {
           model: User,
           attributes: ['name']
         }
@@ -42,10 +38,6 @@ router.get('/:id', withAuth, async (req, res) => {
   try {
     const individualComment = await Comment.findByPk(req.params.id, {
       include: [
-        {
-          model: Entry,
-          attributes: ['title']
-        },
         {
           model: User,
           attributes: ['name']
